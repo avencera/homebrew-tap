@@ -29,8 +29,8 @@ cat pkg/brew/${name}.rb \
     | sed '33s/sha256 .*/sha256 "'"$linux_arm_sha"'"/g' \
     > pkg/brew/${name}_new.rb
 
-rm pkg/brew/${name}.rb
-mv pkg/brew/${name}_new.rb pkg/brew/${name}.rb
+rm pkg/brew/"${name}".rb
+mv pkg/brew/"${name}"_new.rb pkg/brew/"${name}".rb
 
-# git cms "Update ${name} to ${version}"
-# git push
+git cms "Update ${name} to ${version}"
+git push
