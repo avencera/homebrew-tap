@@ -1,0 +1,36 @@
+#! /bin/bash
+
+name=$1
+version=$(gh api /repos/avencera/${name}/releases/latest | jq .name -r)
+
+osx_intel="https://github.com/avencera/${name}/releases/download/${version}/${name}-${version}-x86_64-apple-darwin.tar.gz"
+osx_arm="https://github.com/avencera/${name}/releases/download/${version}/${name}-${version}-aarch64-apple-darwin.tar.gz"
+
+linux_intel="https://github.com/avencera/${name}/releases/download/${version}/${name}-${version}-x86_64-unknown-linux-musl.tar.gz"
+linux_arm="https://github.com/avencera/${name}/releases/download/${version}/${name}-${version}-aarch64-unknown-linux-musl.tar.gz"
+
+function get_sha() {
+    curl -L $1 --output file 
+    local sha=$(shasum -a 256 file | awk '{print $1}')
+    rm file
+    echo $sha
+}
+
+osx_intel_sha=$(get_sha $osx_intel)
+osx_arm_sha=$(get_sha $osx_arm)
+linux_intel_sha=$(get_sha $linux_intel)
+linux_arm_sha=$(get_sha $linux_arm)
+
+cat pkg/brew/${name}.rb \
+    | sed "s/version .*/version '${version}'/g" \
+    | sed '18s/sha256 .*/sha256 "'"$osx_intel_sha"'"/g' \
+    | sed '23s/sha256 .*/sha256 "'"$osx_arm_sha"'"/g' \
+    | sed '28s/sha256 .*/sha256 "'"$linux_intel_sha"'"/g' \
+    | sed '33s/sha256 .*/sha256 "'"$linux_arm_sha"'"/g' \
+    > pkg/brew/${name}_new.rb
+
+rm pkg/brew/${name}.rb
+mv pkg/brew/${name}_new.rb pkg/brew/${name}.rb
+
+# git cms "Update ${name} to ${version}"
+# git push
