@@ -23,10 +23,10 @@ linux_arm_sha=$(get_sha $linux_arm)
 
 cat pkg/brew/${name}.rb \
     | sed "s/version .*/version '${version}'/g" \
-    | sed '18s/sha256 .*/sha256 "'"$osx_intel_sha"'"/g' \
-    | sed '23s/sha256 .*/sha256 "'"$osx_arm_sha"'"/g' \
-    | sed '28s/sha256 .*/sha256 "'"$linux_intel_sha"'"/g' \
-    | sed '33s/sha256 .*/sha256 "'"$linux_arm_sha"'"/g' \
+    | sed '17s/sha256 .*/sha256 "'"$osx_intel_sha"'"/g' \
+    | sed '22s/sha256 .*/sha256 "'"$osx_arm_sha"'"/g' \
+    | sed '27s/sha256 .*/sha256 "'"$linux_intel_sha"'"/g' \
+    | sed '32s/sha256 .*/sha256 "'"$linux_arm_sha"'"/g' \
     > pkg/brew/${name}_new.rb
 
 rm pkg/brew/"${name}".rb

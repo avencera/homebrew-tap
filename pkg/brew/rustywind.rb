@@ -5,12 +5,12 @@
 # To remove:
 #   brew uninstall rustywind
 #   brew untap avencera/taps
+
 class Rustywind < Formula
   version 'v0.15.1'
   desc "CLI for organizing Tailwind CSS classes"
   homepage "https://github.com/avencera/rustywind"
   license "Apache-2.0"
-
 
   if OS.mac? && Hardware::CPU.intel?
     url "https://github.com/avencera/rustywind/releases/download/#{version}/rustywind-#{version}-x86_64-apple-darwin.tar.gz"

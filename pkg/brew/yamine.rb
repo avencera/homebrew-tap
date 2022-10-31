@@ -5,12 +5,12 @@
 # To remove:
 #   brew uninstall yamine
 #   brew untap avencera/taps
+
 class Yamine < Formula
   version 'v0.2.0'
   desc "A simple CLI for combining json and yaml files"
   homepage "https://github.com/avencera/yamine"
   license "Apache-2.0"
-
 
   if OS.mac? && Hardware::CPU.intel?
     url "https://github.com/avencera/yamine/releases/download/#{version}/yamine-#{version}-x86_64-apple-darwin.tar.gz"
