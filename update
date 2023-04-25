@@ -11,8 +11,9 @@ fi
 
 version=$(gh api /repos/avencera/${name}/releases/latest | jq .name -r)
 
-echo $?
 echo "updating $name to $version"
+echo ""
+echo ""
 
 osx_intel="https://github.com/avencera/${name}/releases/download/${version}/${name}-${version}-x86_64-apple-darwin.tar.gz"
 osx_arm="https://github.com/avencera/${name}/releases/download/${version}/${name}-${version}-aarch64-apple-darwin.tar.gz"
@@ -32,10 +33,13 @@ osx_arm_sha=$(get_sha $osx_arm)
 linux_intel_sha=$(get_sha $linux_intel)
 linux_arm_sha=$(get_sha $linux_arm)
 
+echo ""
+echo ""
 echo "osx intel: $osx_intel_sha"
 echo "osx arm: $osx_arm_sha"
 echo "linux intel: $linux_intel_sha"
 echo "linux arm: $linux_arm_sha"
+echo ""
 
 cat pkg/brew/${name}.rb \
     | sed "s/version .*/version '${version}'/g" \
@@ -48,5 +52,7 @@ cat pkg/brew/${name}.rb \
 rm pkg/brew/"${name}".rb
 mv pkg/brew/"${name}"_new.rb pkg/brew/"${name}".rb
 
+echo "Committing changes"
 git cms "Update ${name} to ${version}"
+echo "Pushing changes"
 git push
