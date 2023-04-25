@@ -1,7 +1,18 @@
 #! /bin/bash
 
+set -e
+
 name=$1
+
+if [ -z "$name" ]; then
+    echo "Usage: $0 <repo name>"
+    exit 1
+fi
+
 version=$(gh api /repos/avencera/${name}/releases/latest | jq .name -r)
+
+echo $?
+echo "updating $name to $version"
 
 osx_intel="https://github.com/avencera/${name}/releases/download/${version}/${name}-${version}-x86_64-apple-darwin.tar.gz"
 osx_arm="https://github.com/avencera/${name}/releases/download/${version}/${name}-${version}-aarch64-apple-darwin.tar.gz"
@@ -20,6 +31,11 @@ osx_intel_sha=$(get_sha $osx_intel)
 osx_arm_sha=$(get_sha $osx_arm)
 linux_intel_sha=$(get_sha $linux_intel)
 linux_arm_sha=$(get_sha $linux_arm)
+
+echo "osx intel: $osx_intel_sha"
+echo "osx arm: $osx_arm_sha"
+echo "linux intel: $linux_intel_sha"
+echo "linux arm: $linux_arm_sha"
 
 cat pkg/brew/${name}.rb \
     | sed "s/version .*/version '${version}'/g" \
