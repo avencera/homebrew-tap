@@ -6,7 +6,7 @@
 #   brew uninstall easywind
 #   brew untap avencera/taps
 
-class Eaywind < Formula
+class Easywind < Formula
   version 'v0.1.2'
   desc "A complete quickstart CLI for Tailwind with generator and livereload server"
   homepage "https://github.com/avencera/easywind"
