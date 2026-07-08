@@ -7,29 +7,29 @@
 #   brew untap avencera/taps
 
 class Rustywind < Formula
-  version 'v0.25.1'
+  version 'v0.25.2'
   desc "CLI for organizing Tailwind CSS classes"
   homepage "https://github.com/avencera/rustywind"
   license "Apache-2.0"
 
   if OS.mac? && Hardware::CPU.intel?
     url "https://github.com/avencera/rustywind/releases/download/#{version}/rustywind-#{version}-x86_64-apple-darwin.tar.gz"
-    sha256 "2f3191704e05bf422903168128c47a0279c3d9f77647c0a1b4f647b345a46532"
+    sha256 "c7a61eef4abcc44222270a687d22a9c24f5015c2f52970f5c17ac86ce845f32a"
   end
 
   if OS.mac? && Hardware::CPU.arm?
     url "https://github.com/avencera/rustywind/releases/download/#{version}/rustywind-#{version}-aarch64-apple-darwin.tar.gz"
-    sha256 "b2291fc1812411e456c0adb7943678402445dc6cbb54afde3a3420a469852c45"
+    sha256 "8726e240a1ece0c8f45aec20586a327f64ca4c361b6d5d92787b90db025e76d3"
   end
 
   if OS.linux? && Hardware::CPU.intel?
     url "https://github.com/avencera/rustywind/releases/download/#{version}/rustywind-#{version}-x86_64-unknown-linux-musl.tar.gz"
-    sha256 "2576262af89492d75921e454e58ecb07eeb54c87abbb05fa61f62e16379b40ad"
+    sha256 "974c9bd10cffbfca050cc4e8628507b5f3b6c66c09ef12ab2e0e2f78a02e64fe"
   end
 
   if OS.linux? && Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
     url "https://github.com/avencera/rustywind/releases/download/#{version}/rustywind-#{version}-aarch64-unknown-linux-musl.tar.gz"
-    sha256 "bf06699573fbdfc3f772de9f5f1fb1207549eef2d196b54e6c9bdc3f47039f84"
+    sha256 "48881274213d7d6646a7349145e002369588901d64a8d44b2f76bff1c090d2c6"
   end
 
   def install
